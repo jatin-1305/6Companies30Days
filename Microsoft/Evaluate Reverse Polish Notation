@@ -1,1 +1,30 @@
+// take a stack and store the operands
+// whenever operator comes, pop the first two elements of stack (if size>=2)
+// and push the result of first two top elements in stack
 
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int>st;
+        for(auto i: tokens) {
+            if(i=="+" or i=="-" or i=="*" or i=="/") {
+                if(st.size()>=2) {
+                    int a = st.top();
+                    st.pop();
+                    int b = st.top();
+                    st.pop();
+                    if(i=="+") st.push(a+b);
+                    else if(i=="-") st.push(b-a);
+                    else if(i=="*") st.push(a*b);
+                    else st.push(b/a);
+                }
+            }
+            else {
+                int x = stoi(i);
+                st.push(x);
+            }
+        }
+        return st.top();
+    }
+};
