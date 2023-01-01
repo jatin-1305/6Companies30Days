@@ -1,1 +1,38 @@
+// keep count of bull values and store it in map
+// keep count for common words in secret and guess and check if that word is already used in secret's map
+// then subtract the count from the common words count
 
+
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int x=0,y=0;
+        unordered_map<char,int> m;
+        for(int i=0;i<secret.size();i++) {
+            if(secret[i]==guess[i]){
+                x++;
+                m[secret[i]]++;
+            }
+        }
+        unordered_map<char,int>m1;
+        unordered_map<char,int>m2;
+        for(auto i: secret) m1[i]++;
+        for(auto i: guess) m2[i]++;
+
+        for(auto i: m) cout<<i.first<<" "<<i.second<<endl;
+
+        for(auto i: m2){
+            int bull = 0;
+            if(m1.find(i.first)!=m1.end()) {
+                if(m.find(i.first)!=m.end()) {
+                    bull = m[i.first];
+                    cout<<"bull is"<<bull;
+                }
+                y = y+min(m2[i.first],m1[i.first])-bull;
+            }
+        }
+        string s="";
+        s=to_string(x)+"A"+to_string(y)+"B";
+        return s;
+    }
+};
